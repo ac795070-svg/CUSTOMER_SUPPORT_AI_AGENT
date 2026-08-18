@@ -9,6 +9,9 @@ from google.adk.agents import Agent
 from google.adk.runners import InMemoryRunner
 from google.genai import types
 
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -36,7 +39,7 @@ class ChatRequest(BaseModel):
 
 @app.get("/")
 def home():
-    return {"status": "Customer Support Agent is running"}
+    return FileResponse("index.html")
 
 @app.post("/chat")
 async def chat(req: ChatRequest):
